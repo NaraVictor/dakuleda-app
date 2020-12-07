@@ -1,7 +1,7 @@
 import React from "react";
 
 const CartItem = (props) => {
-	const { title, category, image, qty } = props;
+	// const { title, category, image, qty } = props;
 
 	const qtyControl = (
 		<select name="cart-qty" className="control-slim cart-qty">

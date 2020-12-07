@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Row } from "react-bootstrap";
 import CategorySideBar from "./components/sidebar";
 import CategoryProductList from "./components/productsList";
 import CategoryNav from "./components/nav";

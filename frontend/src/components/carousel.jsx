@@ -59,33 +59,33 @@ export class SlimSlider extends Component {
 	}
 }
 
-export class BootstrapSlider extends Component {
-	render() {
-		return (
-			<div id="bootstrapslider" className="carousel slide" data-ride="carousel">
-				<div className="carousel-inner">{this.props.children}</div>
+// export class BootstrapSlider extends Component {
+// 	render() {
+// 		return (
+// 			<div id="bootstrapslider" className="carousel slide" data-ride="carousel">
+// 				<div className="carousel-inner">{this.props.children}</div>
 
-				<a
-					className="carousel-control-prev"
-					href="#bootstrapslider"
-					role="button"
-					data-slide="prev">
-					<span
-						className="carousel-control-prev-icon"
-						aria-hidden="true"></span>
-					<span className="sr-only">Previous</span>
-				</a>
-				<a
-					className="carousel-control-next"
-					href="#bootstrapslider"
-					role="button"
-					data-slide="next">
-					<span
-						className="carousel-control-next-icon"
-						aria-hidden="true"></span>
-					<span className="sr-only">Next</span>
-				</a>
-			</div>
-		);
-	}
-}
+// 				<a
+// 					className="carousel-control-prev"
+// 					href="#bootstrapslider"
+// 					role="button"
+// 					data-slide="prev">
+// 					<span
+// 						className="carousel-control-prev-icon"
+// 						aria-hidden="true"></span>
+// 					<span className="sr-only">Previous</span>
+// 				</a>
+// 				<a
+// 					className="carousel-control-next"
+// 					href="#bootstrapslider"
+// 					role="button"
+// 					data-slide="next">
+// 					<span
+// 						className="carousel-control-next-icon"
+// 						aria-hidden="true"></span>
+// 					<span className="sr-only">Next</span>
+// 				</a>
+// 			</div>
+// 		);
+// 	}
+// }

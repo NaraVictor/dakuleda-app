@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { BootstrapSlider } from "../../../components/carousel";
 import Product from "./../../../components/shop/product";
 import { SlimSlider } from "./../../../components/carousel";
 import { SplideSlide } from "@splidejs/react-splide";
