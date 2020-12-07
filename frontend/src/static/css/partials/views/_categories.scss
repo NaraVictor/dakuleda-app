@@ -1,0 +1,54 @@
+@import "../common/colors";
+@import "../common/utils";
+
+@mixin categories {
+	text-decoration: none;
+	list-style: none;
+}
+
+.main-category {
+	@include categories();
+	padding: 10px 0px;
+	font-weight: bold;
+	border-bottom: 0.2px solid #eee;
+}
+
+.sub-category {
+	@include categories();
+	font-weight: normal;
+}
+
+.categories-list {
+	border-right: 0.5px solid #eee;
+}
+
+#category-search {
+	@include search-box();
+	padding: 5px 15px;
+}
+
+.categories-menu {
+	display: none;
+}
+
+.view-options {
+	position: absolute;
+	right: 5%;
+	top: 7px;
+}
+
+// media
+@media screen and (max-width: 780px) {
+	.categories-list,
+	.category-name {
+		display: none;
+	}
+
+	.categories-menu {
+		display: block;
+	}
+
+	.view-options small {
+		display: none;
+	}
+}
