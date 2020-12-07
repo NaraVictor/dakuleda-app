@@ -1,5 +1,4 @@
 import React from "react";
-import CategoryNav from "./nav";
 import ProductListView from "./../../../components/shop/productListView";
 
 class CategoryProductList extends React.Component {
