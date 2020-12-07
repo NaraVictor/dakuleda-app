@@ -1,0 +1,11 @@
+.single-product-image {
+	max-height: 50vh;
+	max-width: 35vw;
+}
+
+@media screen and (max-width: 999px) {
+	.single-product-image {
+		max-height: 30vh;
+		max-width: 80vw;
+	}
+}
