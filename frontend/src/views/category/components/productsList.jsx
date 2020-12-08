@@ -1,5 +1,6 @@
 import React from "react";
 import ProductListView from "./../../../components/shop/productListView";
+import axios from "axios";
 
 class CategoryProductList extends React.Component {
 	constructor(props) {
@@ -10,11 +11,9 @@ class CategoryProductList extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch("https://fakestoreapi.com/products/")
-			.then((res) => res.json())
-			.then((json) => {
-				return this.setState({ products: json });
-			});
+		axios
+			.get("https://fakestoreapi.com/products/")
+			.then((res) => this.setState({ products: res.data }));
 	}
 
 	render() {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row } from "react-bootstrap";
 import Category from "../../../components/shop/category";
+import axios from "axios";
 
 class ShopByCategory extends Component {
 	constructor(props) {
@@ -11,9 +12,9 @@ class ShopByCategory extends Component {
 	}
 
 	componentDidMount() {
-		fetch("https://fakestoreapi.com/products?limit=4")
-			.then((res) => res.json())
-			.then((json) => this.setState({ categories: json }));
+		axios
+			.get("https://fakestoreapi.com/products?limit=4")
+			.then((res) => this.setState({ categories: res.data }));
 	}
 
 	render() {

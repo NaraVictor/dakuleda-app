@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Product from "./../../../components/shop/product";
 
 class Shop extends Component {
@@ -10,11 +11,9 @@ class Shop extends Component {
 	}
 
 	componentDidMount() {
-		fetch("https://fakestoreapi.com/products/")
-			.then((res) => res.json())
-			.then((json) => {
-				return this.setState({ products: json });
-			});
+		axios
+			.get("https://fakestoreapi.com/products/")
+			.then((res) => this.setState({ products: res.data }));
 	}
 
 	render() {
