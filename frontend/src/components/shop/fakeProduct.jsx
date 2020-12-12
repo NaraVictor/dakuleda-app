@@ -2,34 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Product = (props) => {
-	const {
-		name,
-		regular_price,
-		product_image,
-		manufacturer_name,
-		new_price,
-		slug,
-	} = props.prod;
+	const { title, image, manufacturer, price } = props.prod;
 	const { hideButtons, hideSeparator } = props;
 
 	return (
 		<article className="product text-center my-md-4">
-			<Link to={`/product/${slug}`} title={name}>
+			<Link to={`/product/${title}`} title={title}>
 				<div className="product-image">
 					<img
-						src={product_image}
+						src={image}
 						style={{ maxHeight: 200, maxWidth: 200 }}
 						alt="product"
 					/>
 				</div>
 				<div className="product-detail">
-					<p className="m-0 product-title">{name}</p>
-					<small>{manufacturer_name ?? "manufacturer"}</small>
+					<p className="m-0 product-title">{title}</p>
+					<small>{manufacturer ?? "manufacturer"}</small>
 					<div>
-						<strong>GHS {new_price}</strong>{" "}
-						<strike>
-							<small>GHS {regular_price}</small>
-						</strike>
+						<strong>GHS {price}</strong> <strike>GHS 110</strike>
 					</div>
 
 					{hideSeparator ? "" : <hr />}

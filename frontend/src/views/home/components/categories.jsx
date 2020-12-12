@@ -11,10 +11,10 @@ class ShopByCategory extends Component {
 		};
 	}
 
-	componentDidMount() {
-		axios
-			.get("https://fakestoreapi.com/products?limit=4")
-			.then((res) => this.setState({ categories: res.data }));
+	async componentDidMount() {
+		await axios
+			.get("http://127.0.0.1:8000/api/categories/")
+			.then((res) => this.setState({ categories: res.data.categories }));
 	}
 
 	render() {

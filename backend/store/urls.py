@@ -7,10 +7,14 @@ urlpatterns = [
 
     # products
     path('products/', Products.as_view(), name='products'),
-    path('products/<str:category>', product_category, name='products_category'),
-    # path('products/<str:name>', Products.as_view(), name='product_name'),
-    # path('products/<int:id>', Products.as_view(), name='product_id'),
-    path('products/<str:sub_category>', Products.as_view(), name='products_subcategories'),
+    path('products/<int:id>', Products.as_view(), name='product_id'),
+
+    # categories
+    path('categories/', Categories.as_view(), name='all_categories'),
+    path('categories/<str:category>', Categories.as_view(), name='category'),
+    
+    # sub-categories
+    path('products/sub-categories/<str:sub_category>', Products.as_view(), name='products_subcategories'),
 
     # orders
     path('orders/', orders, name='orders'),

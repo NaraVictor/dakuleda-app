@@ -37,6 +37,20 @@
 	top: 7px;
 }
 
+.category {
+	position: relative;
+	height: 13rem;
+
+	& img {
+		border-radius: 100%;
+	}
+
+	& .category-title {
+		position: absolute;
+		bottom: 0px;
+	}
+}
+
 // media
 @media screen and (max-width: 780px) {
 	.categories-list,

@@ -2,20 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Category = (props) => {
-	const { image, title } = props.category;
+	const { image, name, slug } = props.category;
 	return (
-		<Link to={`/c/${title}`} className="category text-center">
-			<div>
+		<Link to={`/c/${slug}`}>
+			<div className="category text-center">
 				<img
 					src={image}
 					alt="category"
-					className="img-circle"
 					style={{ maxHeight: 200, maxWidth: 200 }}
 				/>
 			</div>
-			<div>
-				<p>{title}</p>
-			</div>
+			<div className="category-title text-center">{name}</div>
 		</Link>
 	);
 };

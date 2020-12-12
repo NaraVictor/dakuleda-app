@@ -398,6 +398,20 @@ svg {
   top: 7px;
 }
 
+.category {
+  position: relative;
+  height: 13rem;
+}
+
+.category img {
+  border-radius: 100%;
+}
+
+.category .category-title {
+  position: absolute;
+  bottom: 0px;
+}
+
 @media screen and (max-width: 780px) {
   .categories-list,
   .category-name {
