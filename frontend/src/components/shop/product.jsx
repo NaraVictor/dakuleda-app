@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { shopContext } from "./../../context/shopContext";
+import AddToCartButton from "./addToCartButton";
+import BuyItemButton from "./buyItemButton";
 
 const Product = (props) => {
 	const {
@@ -11,10 +14,14 @@ const Product = (props) => {
 		slug,
 	} = props.prod;
 	const { hideButtons, hideSeparator } = props;
+	const { selectItem } = useContext(shopContext);
 
 	return (
 		<article className="product text-center my-md-4">
-			<Link to={`/product/${slug}`} title={name}>
+			<Link
+				to={`/p/${slug}`}
+				title={name}
+				onClick={() => selectItem(props.prod)}>
 				<div className="product-image">
 					<img
 						src={product_image}
@@ -39,8 +46,8 @@ const Product = (props) => {
 				""
 			) : (
 				<div className="product-footer">
-					<button className="btn-dc-white">Add to cart</button>
-					<button className="btn-dc-primary">Buy now</button>
+					<AddToCartButton prod={props.prod} />
+					<BuyItemButton prod={props.prod} />
 				</div>
 			)}
 		</article>

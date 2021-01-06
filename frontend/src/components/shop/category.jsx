@@ -6,11 +6,7 @@ const Category = (props) => {
 	return (
 		<Link to={`/c/${slug}`}>
 			<div className="category text-center">
-				<img
-					src={image}
-					alt="category"
-					style={{ maxHeight: 200, maxWidth: 200 }}
-				/>
+				<img src={image} alt="category" />
 			</div>
 			<div className="category-title text-center">{name}</div>
 		</Link>

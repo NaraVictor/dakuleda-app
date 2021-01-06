@@ -42,7 +42,7 @@ class Home extends Component {
 					</SplideSlide>
 				</DefaultSlider>
 				<br />
-				<Deals />
+				{/* <Deals /> */}
 				<ShopByCategory />
 				<Shop />
 			</Container>

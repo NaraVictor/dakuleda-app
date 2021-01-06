@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AddToCartButton from "./addToCartButton";
+import BuyItemButton from "./buyItemButton";
 
 const ProductListView = (props) => {
 	const { title, price, image, manufacturer, description } = props.prod;
@@ -8,7 +10,7 @@ const ProductListView = (props) => {
 		<article className="product-list">
 			<div className="row">
 				<div className="col-2 no-gutters">
-					<Link to={`/product/${title}`} title={title} className="col">
+					<Link to={`/p/${title}`} title={title} className="col">
 						<img
 							src={image}
 							alt="product"
@@ -18,7 +20,7 @@ const ProductListView = (props) => {
 				</div>
 
 				<div className="col-md-6 col product-title-details pl-5">
-					<Link to={`/product/${title}`} title={title}>
+					<Link to={`/p/${title}`} title={title}>
 						<h4>{title}</h4>
 						<p className="product-list-manufacturer">
 							{manufacturer ? manufacturer : "manufacturer not specified"}
@@ -42,10 +44,8 @@ const ProductListView = (props) => {
 							<strike>GHS 110</strike>
 						</p>
 					</div>
-					<button className="btn-dc-white d-md-block my-md-3">
-						Add to cart
-					</button>
-					<button className="btn-dc-primary d-md-block">Buy now</button>
+					<AddToCartButton prod={props.prod} classes="d-md-block my-md-3" />
+					<BuyItemButton prod={props.prod} classes="d-md-block" />
 				</div>
 			</div>
 		</article>

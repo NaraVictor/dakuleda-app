@@ -25,9 +25,9 @@ class ShopByCategory extends Component {
 
 				<Row>
 					{this.state.categories.map((cat) => (
-						<article className="col-md-3 col-sm-6 my-3" key={cat.id}>
+						<div className="col-md-3 col-6 my-3" key={cat.id}>
 							<Category category={cat} />
-						</article>
+						</div>
 					))}
 				</Row>
 			</section>

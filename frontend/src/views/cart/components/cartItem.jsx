@@ -1,29 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
+import { cartContext } from "./../../../context/cartContext";
 
 const CartItem = (props) => {
-	// const { title, category, image, qty } = props;
+	const cart = useContext(cartContext);
+
+	const {
+		name,
+		category,
+		new_price,
+		regular_price,
+		product_image,
+		number_in_stock,
+		quantity,
+	} = props.item;
+
+	let options = [];
+
+	for (let i = 1; i <= number_in_stock; i++) {
+		options.push(i);
+	}
 
 	const qtyControl = (
 		<select name="cart-qty" className="control-slim cart-qty">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
+			{options.map((stock) => (
+				<option value={`${stock}`} selected={stock === quantity ? true : false}>
+					{stock}
+				</option>
+			))}
 		</select>
 	);
 
 	const prices = (
 		<span className="cart-prices">
-			<h4>GHS 100</h4>
+			<h4>GHS {new_price}</h4>
 			<p>
-				<strike>GHS 130</strike>
+				<strike>GHS {regular_price}</strike>
 			</p>
 		</span>
 	);
 
 	const deleteButton = (
-		<span className="cart-delete">
+		<span className="cart-delete" onClick={() => cart.removeFromCart(name)}>
 			Delete
 			<ion-icon name="trash-outline"></ion-icon>
 		</span>
@@ -38,15 +55,11 @@ const CartItem = (props) => {
 	return (
 		<div className="row">
 			<div className="col-2">
-				<img
-					src="https://elcopcbonline.com/photos/product/4/176/4.jpg"
-					alt="cart product"
-					className="cart-image"
-				/>
+				<img src={product_image} alt="cart product" className="cart-image" />
 			</div>
 			<div className="col-md-5 col ml-3 ml-md-0 cart-detail">
-				<h4>Dr Dre Solo beats (product name)</h4>
-				<p>category</p>
+				<h4>{name}</h4>
+				<p>{category}</p>
 
 				<div className="cart-detail-sm">
 					{isMobile ? (

@@ -269,99 +269,6 @@
   background-color: #0d0d0d;
 }
 
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Roboto", sans-serif;
-}
-
-a {
-  font-family: "Montserrat", sans-serif;
-}
-
-svg {
-  display: inline;
-}
-
-.logo {
-  max-height: 40px;
-}
-
-.page-container {
-  position: relative;
-  min-height: 100vh;
-}
-
-.page-content {
-  padding-bottom: 8rem;
-}
-
-.footer {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-}
-
-.circle {
-  border: 2px solid #f2b705;
-  border-radius: 100%;
-  padding: 0.5vh 1.2vh;
-  display: inline;
-}
-
-.d-form-control {
-  padding: 7px 10px;
-  border-radius: 3px;
-  border: 2px solid black;
-  outline: none;
-  -webkit-transition: border 0.25s ease-in-out;
-  transition: border 0.25s ease-in-out;
-}
-
-.d-form-control:focus {
-  border: 4px solid black;
-}
-
-.d-form-label {
-  padding: 1px;
-  font-size: 0.9rem;
-  display: block;
-  margin: 0px;
-}
-
-/* Color Theme Swatches in Hex (made from adobe colors) */
-.dc-yello {
-  color: #f2cb05;
-}
-
-.dc-gold {
-  color: #f2b705;
-}
-
-.dc-black {
-  color: #0d0d0d;
-}
-
-.dc-bg-yello {
-  background-color: #f2cb05;
-}
-
-.dc-bg-gold {
-  background-color: #f2b705;
-}
-
-.dc-bg-black {
-  background-color: #0d0d0d;
-}
-
 .main-category {
   text-decoration: none;
   list-style: none;
@@ -405,6 +312,8 @@ svg {
 
 .category img {
   border-radius: 100%;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .category .category-title {
@@ -422,6 +331,14 @@ svg {
   }
   .view-options small {
     display: none;
+  }
+  .category {
+    height: 9rem;
+  }
+  .category img {
+    border-radius: 100%;
+    max-width: 150px;
+    max-height: 150px;
   }
 }
 
@@ -518,5 +435,98 @@ svg {
     max-height: 30vh;
     max-width: 80vw;
   }
+}
+
+/* Color Theme Swatches in Hex (made from adobe colors) */
+.dc-yello {
+  color: #f2cb05;
+}
+
+.dc-gold {
+  color: #f2b705;
+}
+
+.dc-black {
+  color: #0d0d0d;
+}
+
+.dc-bg-yello {
+  background-color: #f2cb05;
+}
+
+.dc-bg-gold {
+  background-color: #f2b705;
+}
+
+.dc-bg-black {
+  background-color: #0d0d0d;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  font-family: "Montserrat", sans-serif;
+}
+
+svg {
+  display: inline;
+}
+
+.logo {
+  max-height: 40px;
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.page-content {
+  padding-bottom: 8rem;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+.circle {
+  border: 2px solid #f2b705;
+  border-radius: 100%;
+  padding: 0.5vh 1.2vh;
+  display: inline;
+}
+
+.d-form-control {
+  padding: 7px 10px;
+  border-radius: 3px;
+  border: 2px solid black;
+  outline: none;
+  -webkit-transition: border 0.25s ease-in-out;
+  transition: border 0.25s ease-in-out;
+}
+
+.d-form-control:focus {
+  border: 4px solid black;
+}
+
+.d-form-label {
+  padding: 1px;
+  font-size: 0.9rem;
+  display: block;
+  margin: 0px;
 }
 /*# sourceMappingURL=styles.css.map */

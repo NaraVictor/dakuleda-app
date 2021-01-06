@@ -65,10 +65,10 @@ class SimilarProducts extends Component {
 					{similar.map((item, index) => (
 						<SplideSlide>
 							<Product
+								key={item.title}
 								hideButtons={true}
 								hideSeparator={true}
 								prod={item}
-								key={item.id}
 							/>
 						</SplideSlide>
 					))}

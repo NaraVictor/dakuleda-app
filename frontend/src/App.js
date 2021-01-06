@@ -10,14 +10,17 @@ import ShopRoutes from "./routes/shopRoutes";
 import "./static/css/styles.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+// ion icon imported using a script tag in the index.html
+import DakuledaErrorBoundary from "./components/errorBoundary";
+
 function App() {
 	return (
 		<BrowserRouter>
-			<ShopRoutes />
+			<DakuledaErrorBoundary>
+				<ShopRoutes />
+			</DakuledaErrorBoundary>
 		</BrowserRouter>
 	);
 }
 
 export default App;
-
-// ion icon imported using a script tag in the index.html
