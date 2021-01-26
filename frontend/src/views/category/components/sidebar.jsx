@@ -1,27 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const CategorySideBar = () => {
+const CategorySideBar = (props) => {
+	const { categories } = props;
+
 	return (
 		<ul className="sticky-top">
-			<li className="main-category">
-				category
-				<ul className="sub-category">
-					<li>subcategory</li>
-					<li>subcategory</li>
-					<li>subcategory</li>
-				</ul>
-			</li>
-			<li className="main-category">category</li>
-			<li className="main-category">
-				category
-				<ul className="sub-category">
-					<li>subcategory</li>
-					<li>subcategory</li>
-					<li>subcategory</li>
-				</ul>
-			</li>
-			<li className="main-category">category</li>
-			<li className="main-category">category</li>
+			{categories.map((cat) => (
+				<Link
+					to={`/c/${cat.slug}`}
+					category={cat.name}
+					className="main-category pl-2">
+					{cat.name}
+				</Link>
+			))}
 		</ul>
 	);
 };

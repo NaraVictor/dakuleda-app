@@ -7,35 +7,59 @@ class CartContext extends React.Component {
 		super(props);
 		this.state = {
 			cart: [],
-			success: false,
+			// success: false,
 		};
 	}
 
+	componentDidMount() {
+		// localStorage.clear();
+		this.getCart() && this.setState({ cart: this.getCart() });
+	}
+
+	setCart = (cart) => {
+		localStorage.setItem("cart", JSON.stringify(cart));
+	};
+
+	getCart = () => {
+		return JSON.parse(localStorage.getItem("cart"));
+	};
+
+	clearCart = () => {
+		localStorage.removeItem("cart");
+	};
+
 	handleClearCart = () => {
-		this.setState({ success: !this.state.success, cart: [] });
+		this.setState({ cart: [] });
+		this.clearCart();
 	};
 
 	handleAddToCart = (prod) => {
-		const item = this.state.cart.filter((item) => item.name === prod.name);
-		this.state.success && this.setState({ success: false });
+		const { cart: c } = this.state;
+		// this.state.success && this.setState({ success: false });
 
-		// check if product already exists
-		if (item.length > 0) {
+		// check if product already
+		if (c.filter((item) => item.name === prod.name).length > 0) {
 			// if so, increase qty instead
-			// const foundItem = item[0];
-			item[0].quantity = item[0].quantity + 1;
-			return item[0];
+			const item = c.map((p) => {
+				if (p.name === prod.name) p.quantity = p.quantity + 1;
+				return p;
+			});
+			this.setCart(item);
+			this.setState({ cart: item });
+			return;
 		}
 
 		// if not, add entire item to cart
-		const updatedCart = [...this.state.cart, { ...prod, quantity: 1 }];
-		this.setState({ cart: updatedCart });
+		const cart = [...this.state.cart, { ...prod, quantity: 1 }];
+		this.setState({ cart });
+		this.setCart(cart);
 	};
 
 	handleRemoveFromCart = (name) => {
 		// re-create new cart without removed item
-		const newCart = this.state.cart.filter((item) => item.name !== name);
-		this.setState({ cart: newCart });
+		const cart = this.state.cart.filter((item) => item.name !== name);
+		this.setState({ cart });
+		this.setCart(cart);
 	};
 
 	render() {

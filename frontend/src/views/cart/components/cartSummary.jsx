@@ -24,7 +24,11 @@ const CartSummary = (props) => {
 			</table>
 			<hr />
 
-			<button className="btn-primary-filled py-1 w-100">Checkout</button>
+			<button
+				className="btn-primary-filled py-1 w-100"
+				onClick={props.onCheckOut}>
+				Checkout
+			</button>
 		</div>
 	);
 };

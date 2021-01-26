@@ -4,18 +4,31 @@
 @mixin categories {
 	text-decoration: none;
 	list-style: none;
+	display: block;
+	color: black;
+
+	&:hover {
+		background-color: #eee;
+		text-decoration: none;
+		color: $dakuleda-dark-gold;
+	}
 }
 
 .main-category {
 	@include categories();
+	margin-left: 10px;
 	padding: 10px 0px;
-	font-weight: bold;
+	// font-weight: bold;
 	border-bottom: 0.2px solid #eee;
 }
 
 .sub-category {
 	@include categories();
 	font-weight: normal;
+}
+
+.category-link {
+	text-decoration: underline;
 }
 
 .categories-list {
@@ -55,13 +68,13 @@
 
 // media
 @media screen and (max-width: 780px) {
-	.categories-list,
-	.category-name {
+	.categories-list {
 		display: none;
 	}
 
 	.categories-menu {
-		display: block;
+		display: inline-block;
+		color: $dakuleda-gold;
 	}
 
 	.view-options small {

@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductDetailNav = (props) => {
 	return (
-		<section className="sticky-top bg-warning">
+		<section className="bg-warning">
 			{/* <hr className="m-0" /> */}
 			<ul className="nav container py-2">
 				<li className="nav-item">
@@ -10,11 +10,11 @@ const ProductDetailNav = (props) => {
 						Specifications
 					</a>
 				</li>
-				<li className="nav-item">
+				{/* <li className="nav-item">
 					<a className="nav-link text-dark" href="#reviews">
 						Reviews
 					</a>
-				</li>
+				</li> */}
 			</ul>
 		</section>
 	);

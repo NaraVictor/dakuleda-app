@@ -13,6 +13,11 @@ class Cart extends Component {
 
 	static contextType = cartContext;
 
+	handleCheckOut = () => {
+		console.log("Checkout initiated");
+		this.props.history.push("/checkout");
+	};
+
 	render() {
 		return (
 			<section className="container mt-3">
@@ -20,7 +25,9 @@ class Cart extends Component {
 					<div className="text-center">
 						<img src={emptyCart} style={{ maxHeight: "30vh" }} alt="" />
 						<h2 className="mt-4">Your cart is empty</h2>
-						<Link onClick={() => window.history.go(-1)}>Continue shopping</Link>
+						<Link to="" onClick={() => window.history.go(-1)}>
+							Continue shopping
+						</Link>
 					</div>
 				) : (
 					<>
@@ -28,19 +35,23 @@ class Cart extends Component {
 						<div className="row mt-4">
 							<article className="col-md-8">
 								{this.context.cart.map((item) => (
-									<>
-										<CartItem key={item.name} item={item} />
+									<span key={item.id}>
+										<CartItem item={item} />
 										<hr />
-									</>
+									</span>
 								))}
-								<Link onClick={() => window.history.go(-1)} className="mr-4">
+								<Link
+									to="#"
+									onClick={() => window.history.go(-1)}
+									className="mr-4">
 									Continue shopping
 								</Link>
-								<Link onClick={this.context.clearCart}>clear cart</Link>
+								<Link to="#" onClick={this.context.clearCart}>
+									clear cart
+								</Link>
 							</article>
 							<article className="col-md-4">
-								<CartSummary />
-								<a href="/checkout">checkout cheat</a>
+								<CartSummary onCheckOut={this.handleCheckOut} />
 							</article>
 						</div>
 					</>

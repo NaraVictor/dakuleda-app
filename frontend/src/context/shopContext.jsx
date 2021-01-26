@@ -1,4 +1,5 @@
 import React, { createContext } from "react";
+import { getData } from "./../utils/apiCall";
 
 export const shopContext = createContext();
 
@@ -6,54 +7,100 @@ class ShopContext extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedItem: [],
-			buy: [],
+			products: [],
+			selectedItem: {},
+			buy: false,
 		};
 	}
 
-	handleBoughtItem = () => {
-		console.log("Bought item is ", this.state.buy);
+	componentDidMount() {
+		this.fetchProducts().then((res) => {
+			this.setState({ products: res.data.products });
+		});
+	}
+
+	findProduct = (slug) => {
+		// query all products n return a matching slug
+		const q = this.state.products.filter((prod) => {
+			return prod.slug === slug;
+		});
+
+		return q;
 	};
 
+	fetchProducts = async () => {
+		const p = await getData("products/");
+		return p;
+	};
+
+	handleFetchProducts = () => {
+		return this.state.products;
+	};
+
+	handleCheckout = (type) => {
+		// types are cart, buy
+
+		//
+		if (type === "buy") {
+			this.setState({ buy: false });
+			localStorage.removeItem("buy");
+			return;
+		}
+
+		return true;
+	};
+
+	handleGetBuyItem = () => {
+		if (localStorage.getItem("buy") === null) return null;
+		return JSON.parse(localStorage.getItem("buy"));
+	};
+
+	// buy an item
 	handleBuyItem = (item) => {
-		// const { buy } = this.state;
-		// buy.length = 0;
-		// buy.push(item);
-		const newItem = [item];
-		this.setState({ buy: newItem });
+		if (localStorage.getItem("buy") !== null) {
+			localStorage.removeItem("buy");
+		}
+
+		this.setState({ buy: true });
+		localStorage.setItem("buy", JSON.stringify(item));
 	};
 
+	// select an item
 	handleSelectItem = (item) => {
-		// const { selectedItem: si } = this.state;
-
-		// if (si.length < 1 || si === undefined) {
-		// const newItem = si.push({ ...item });
-		// this.setState({ selectedItem: [{ ...item }] });
-		// return;
-		// }
-
-		// si.length = 0;
-		// si.push(item);
 		this.setState({ selectedItem: { ...item } });
 	};
 
-	handleSelectedItem = () => {
+	handleSelectedItem = async (slug) => {
 		const { selectedItem } = this.state;
-		if (selectedItem.length < 1) {
-			return false;
-		}
+		// fetch item from state if it exists
+		if (selectedItem.hasOwnProperty("id")) return { ...selectedItem };
 
-		return { ...selectedItem };
+		// fetch product from server if it doesn't
+		let sp;
+
+		await getData(`products/?slug=${slug}`)
+			.then((p) => {
+				sp = p.data;
+			})
+			.catch((err) => {
+				sp = this.fetchProducts().then((res) => ({
+					...res.data.products[0],
+					notfound: true,
+				}));
+			});
+		return sp;
 	};
 
 	render() {
 		return (
 			<shopContext.Provider
 				value={{
+					fetchProducts: this.handleFetchProducts,
 					getSelectedItem: this.handleSelectedItem,
 					selectItem: this.handleSelectItem,
 					buyItem: this.handleBuyItem,
-					getBuyItem: this.handleBoughtItem,
+					getBuyItem: this.handleGetBuyItem,
+					checkOut: this.handleCheckout,
 				}}>
 				{this.props.children}
 			</shopContext.Provider>

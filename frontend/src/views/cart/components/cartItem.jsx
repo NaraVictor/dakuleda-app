@@ -23,7 +23,10 @@ const CartItem = (props) => {
 	const qtyControl = (
 		<select name="cart-qty" className="control-slim cart-qty">
 			{options.map((stock) => (
-				<option value={`${stock}`} selected={stock === quantity ? true : false}>
+				<option
+					key={stock}
+					value={`${stock}`}
+					selected={stock === quantity ? true : false}>
 					{stock}
 				</option>
 			))}

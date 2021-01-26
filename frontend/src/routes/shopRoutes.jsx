@@ -14,24 +14,36 @@ import ShopContext from "../context/shopContext";
 
 const ShopRoutes = () => {
 	return (
-		<Switch>
-			<div className="page-container">
-				<div className="page-content">
+		<div className="page-container">
+			<div className="page-content">
+				<Switch>
 					<CartContext>
 						<ShopContext>
 							<NavBar />
 							<SubNav />
-							<Route path="/c/:category" exact component={ProductCategory} />
-							<Route path="/p/:name" component={ProductDetail} />
+							<Route
+								path="/c/:category"
+								exact
+								render={(props) => (
+									<ProductCategory {...props} key={Math.random()} />
+								)}
+							/>
+							<Route
+								path="/p/:slug?"
+								exact
+								render={(props) => (
+									<ProductDetail {...props} key={Math.random()} />
+								)}
+							/>
 							<Route path="/cart" component={Cart} />
 							<Route path="/checkout" component={CheckOut} />
 							<Route path="/" exact component={Home} />
 						</ShopContext>
 					</CartContext>
-				</div>
-				<Footer />
+				</Switch>
 			</div>
-		</Switch>
+			<Footer />
+		</div>
 	);
 };
 

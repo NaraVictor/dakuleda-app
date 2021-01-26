@@ -10,20 +10,19 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields =[
-            'name','number_in_stock','product_image',
+            'id','name','number_in_stock','product_image',
             'description','regular_price','new_price',
-            'SKU','gift_eligible','free_delivery', 'slug',
-            'manufacturer_name','category', 'gallery','tags','reviews','gifts']
-
+            'gift_eligible','free_delivery', 'slug',
+            'manufacturer_name','category']
 
 
 class ProductFeatureSerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(source='product.name')
+    name = serializers.CharField(source='product_id.name')
 
     class Meta:
         model = ProductFeature
         fields = [
-            'product_id','title','feature', 'product_name'
+           'title','feature', 'name'
         ]
 
 
@@ -50,12 +49,12 @@ class ManufacturerSerializer(serializers.ModelSerializer):
 
 
 class ProductGallerySerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(source = 'product_id.name')
+    product_name = serializers.CharField(source = 'item.name')
 
     class Meta:
         model = ProductGallery
         fields = [
-            'product_id','product_name','image','date','time'
+            'product_name','image'
         ]
 
 

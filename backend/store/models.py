@@ -66,6 +66,8 @@ class ProductFeature(models.Model):
     title = models.CharField(max_length=50, blank=False)
     feature = models.CharField(max_length=300, blank=False)
 
+    def __str__(self):
+        return f"{self.title} - {self.feature}"
 
 # categories super class
 class Category(models.Model):
@@ -128,13 +130,16 @@ class ProductDeal(models.Model):
 
 # images for a product
 class ProductGallery(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/gallery/products')
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
 
     class Meta:
         db_table = 'product_gallery'
+
+    def __str__(self):
+        return self.item.name
 
 
 # tags associated with products which could be used for searching

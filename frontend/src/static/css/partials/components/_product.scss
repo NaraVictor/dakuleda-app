@@ -2,7 +2,12 @@
 
 .product {
 	position: relative;
-	height: 23rem;
+	height: 20rem;
+
+	& .product-image img {
+		max-width: 200px;
+		max-height: 150px;
+	}
 
 	& a {
 		text-decoration: none;
@@ -50,7 +55,7 @@
 }
 
 .product-list-image {
-	max-width: 150px;
+	max-width: 240px;
 	max-height: 200px;
 }
 
@@ -65,8 +70,18 @@
 		display: none;
 	}
 
+	.product {
+		height: 16rem;
+		margin: 1rem 0;
+
+		& .product-image img {
+			max-width: 180px;
+			max-height: 120px;
+		}
+	}
+
 	.product-list-image {
-		max-width: 80px;
+		max-width: 92px;
 		max-height: 150px;
 		margin-left: 5px;
 	}

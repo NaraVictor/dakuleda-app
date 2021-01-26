@@ -23,11 +23,7 @@ const Product = (props) => {
 				title={name}
 				onClick={() => selectItem(props.prod)}>
 				<div className="product-image">
-					<img
-						src={product_image}
-						style={{ maxHeight: 200, maxWidth: 200 }}
-						alt="product"
-					/>
+					<img src={product_image} alt="product" />
 				</div>
 				<div className="product-detail">
 					<p className="m-0 product-title">{name}</p>

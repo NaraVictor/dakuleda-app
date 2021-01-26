@@ -43,3 +43,16 @@
 		background-color: $dakuleda-yellow;
 	}
 }
+
+.btn-danger-filled {
+	@include btn(#f00);
+	color: white;
+	background-color: red;
+	font-weight: 500;
+
+	transition: background-color 0.3s linear;
+
+	&:hover {
+		background-color: #333;
+	}
+}

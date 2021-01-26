@@ -51,8 +51,16 @@
 	}
 }
 
+.checkout-prod-img {
+	max-width: 16vh;
+}
+
 @media screen and (max-width: 767px) {
 	.cart-detail-sm {
 		display: block;
+	}
+
+	.cart-image {
+		max-height: 50px;
 	}
 }

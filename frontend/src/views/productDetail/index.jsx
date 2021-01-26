@@ -5,12 +5,14 @@ import SimilarProducts from "./components/similarProducts";
 import SingleProduct from "./components/singleProduct";
 import Specifications from "./components/specifications";
 import ProductDetailNav from "./components/productDetailNav";
-import Reviews from "./components/reviews";
-import BrowsingHistory from "./components/browsingHistory";
+// import Reviews from "./components/reviews";
+// import BrowsingHistory from "./components/browsingHistory";
 import ScrollToTopOnMount from "./../../components/scrollToTop";
 
-// context
+//
 import { shopContext } from "./../../context/shopContext";
+import { getData } from "./../../utils/apiCall";
+import LargeAd from "./../../components/ads/largeAd";
 
 class ProductDetail extends Component {
 	constructor(props) {
@@ -18,55 +20,67 @@ class ProductDetail extends Component {
 		this.state = {
 			prod: [],
 			specifications: [],
-			reviews: [],
+			gallery: [],
+			similar: [],
 		};
 	}
 
 	static contextType = shopContext;
 
 	componentDidMount() {
-		const prod = this.context.getSelectedItem();
-		console.log(prod);
+		const { slug } = this.props.match.params;
 
-		if (!prod) {
-			console.log("No selected product");
-		}
+		this.context.getSelectedItem(slug).then((prod) => {
+			this.setState({
+				prod,
+			});
 
-		// console.log("Selected item ", prod);
-		this.setState({
-			prod,
+			// calls for similar products, specifications, n gallery
+			this.fetchSpecifications(prod.id);
+			this.fetchGallery(prod.id);
+			this.fetchSimilarProducts(prod.category);
+			// this.fetchReviews();
 		});
-
-		// calls for similar products, specifications, n reviews
-		this.fetchSimilarProducts();
-		this.fetchSpecifications();
-		this.fetchReviews();
 	}
 
-	fetchSimilarProducts = async () => {
-		await console.log("Fetching similar products...");
+	fetchSimilarProducts = (category) => {
+		getData(`products/similar/${category}`)
+			.then((prods) =>
+				this.setState({ similar: prods.data["similar products"] })
+			)
+			.catch((err) => console.log(err));
 	};
 
-	fetchSpecifications = async () => {
-		await console.log("Fetching specs");
+	fetchSpecifications = (id) => {
+		getData(`products/features/${id}`).then((specs) =>
+			this.setState({ specifications: [...specs.data.features] })
+		);
 	};
 
-	fetchReviews = async () => {
-		await console.log("Fetching product reviews");
+	fetchGallery = (id) => {
+		getData(`products/gallery/${id}`).then((pics) =>
+			this.setState({ gallery: pics.data.gallery })
+		);
 	};
+
+	// fetchReviews = async () => {
+	// 	await console.log("Fetching product reviews");
+	// };
 
 	render() {
+		const { prod, similar, gallery } = this.state;
 		return (
 			<>
 				<ScrollToTopOnMount />
-				<SingleProduct prod={this.state.prod} />
-				<SimilarProducts />
+				<SingleProduct gallery={gallery} prod={prod} />
+				<SimilarProducts prods={similar} />
 				<ProductDetailNav />
 				<div style={{ backgroundColor: "#eee" }} className="py-2">
-					<Specifications />
-					<Reviews />
-					<BrowsingHistory />
+					<Specifications features={this.state.specifications} />
+					{/* <Reviews /> */}
+					{/* <BrowsingHistory /> */}
 				</div>
+				<LargeAd />
 			</>
 		);
 	}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row } from "react-bootstrap";
 import Category from "../../../components/shop/category";
-import axios from "axios";
+import { getData } from "./../../../utils/apiCall";
 
 class ShopByCategory extends Component {
 	constructor(props) {
@@ -12,9 +12,9 @@ class ShopByCategory extends Component {
 	}
 
 	async componentDidMount() {
-		await axios
-			.get("http://127.0.0.1:8000/api/categories/")
-			.then((res) => this.setState({ categories: res.data.categories }));
+		await getData("categories/").then((res) =>
+			this.setState({ categories: res.data.categories })
+		);
 	}
 
 	render() {
@@ -25,7 +25,7 @@ class ShopByCategory extends Component {
 
 				<Row>
 					{this.state.categories.map((cat) => (
-						<div className="col-md-3 col-6 my-3" key={cat.id}>
+						<div className="col-md-3 col-6 my-3" key={cat.name}>
 							<Category category={cat} />
 						</div>
 					))}

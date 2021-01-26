@@ -1,117 +1,130 @@
 import React from "react";
+import { postData } from "../../../utils/apiCall";
+import { shopContext } from "./../../../context/shopContext";
+import CheckOutForm from "./checkoutForm";
+import { BuyCheckOut, CartCheckOut } from "./checkoutItems";
+import { toTitleCase } from "./../../../utils/utils";
 import { Link } from "react-router-dom";
 
-const CheckOut = (props) => {
-	return (
-		<div className="container mt-3">
-			<article className="row">
-				<section className="col">
-					<h3>Checkout</h3>
+class CheckOut extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			form: {
+				name: "",
+				location: "",
+				phone: "",
+				email: "",
+				"payment-method": "",
+				"delivery-method": "",
+			},
+			success: false,
+			errors: [],
+		};
+	}
 
-					{/* personal information */}
-					<hr />
-					<div>
-						<span className="circle">1</span>
-						<p className="d-inline pl-2">Personal</p>
-					</div>
+	static contextType = shopContext;
 
-					<div className="row mt-4">
-						<div className="col-md-5 col">
-							<div>
-								<label htmlFor="name" className="d-form-label">
-									Your name
-								</label>
-								<input
-									type="text"
-									name="name"
-									id="name"
-									className="d-form-control w-100"
-								/>
-							</div>
-							<div className="my-3">
-								<label htmlFor="location" className="d-form-label">
-									Location (district, town etc)
-								</label>
-								<input
-									type="text"
-									name="location"
-									id="location"
-									className="d-form-control w-100"
-								/>
-							</div>
-							<div>
-								<label htmlFor="phone" className="d-form-label">
-									Phone number
-								</label>
-								<input
-									type="tel"
-									name="phone"
-									maxLength={15}
-									id="phone"
-									className="d-form-control w-100"
-								/>
-							</div>
+	componentDidMount() {
+		// check if either cart or buy mode is valid
+		// if(localStorage.getItem("buy"))
+	}
+
+	validateForm = () => {
+		let { errors, form } = this.state;
+		errors = [];
+
+		for (const [key, value] of Object.entries(form)) {
+			if (!value) {
+				if (["email"].includes(key)) continue;
+				else errors.push(`${toTitleCase(key)} is required`);
+			}
+		}
+
+		this.setState({ errors });
+		if (errors.length > 0) return false;
+		return true;
+	};
+
+	handleCheckOut = (e) => {
+		e.preventDefault();
+
+		if (!this.validateForm()) return;
+
+		postData("checkout/").then((res) => {
+			// update success n clear form
+			this.setState({
+				success: true,
+				form: {
+					name: "",
+					location: "",
+					phone: "",
+					email: "",
+					"payment-method": "",
+					"delivery-method": "",
+				},
+			});
+
+			// call checkout on context
+			this.context.checkOut("buy");
+		});
+	};
+
+	handleChange = ({ target: input }) => {
+		const form = { ...this.state.form };
+		form[input.id] = input.value;
+		this.setState({ form });
+	};
+
+	render() {
+		const item = this.context.getBuyItem();
+		const { errors, form, success } = this.state;
+		return (
+			<div className="container mt-3 mb-5">
+				<article className="row">
+					{success ? (
+						<div className="text-center col">
+							<i className="fas fa-check-circle fa-5x text-success"></i>
+							<h2 className="text-success">Success</h2>
+							<p>Your order has been successfully placed.</p>
+							<p>We'd get in touched soon!</p>
+							<Link
+								onClick={() => {
+									this.props.history.replace("/");
+								}}>
+								Back to Shop
+							</Link>
 						</div>
-					</div>
-
-					{/* payment method */}
-					<hr />
-					<div>
-						<span className="circle">2</span>
-						<p className="d-inline pl-2">Payment Method</p>
-					</div>
-
-					<div className="row">
-						<div className="col-md-5 col">
-							<div className="my-3">
-								<label htmlFor="payment-method" className="d-form-label">
-									select preferred option
-								</label>
-								<select
-									name="paymentmethod"
-									id="payment-method"
-									className="d-form-control w-100">
-									<option value="1">Cash-on-delivery</option>
-									<option value="2">Cards</option>
-									<option value="3">Installment</option>
-								</select>
-							</div>
-						</div>
-					</div>
-
-					{/* Delivery */}
-					<hr />
-					<div>
-						<span className="circle">3</span>
-						<p className="d-inline pl-2">Delivery</p>
-					</div>
-
-					<div className="row">
-						<div className="col-md-5 col">
-							<div className="my-3">
-								<label htmlFor="delivery-method" className="d-form-label">
-									select preferred option
-								</label>
-								<select
-									name="deliverymethod"
-									id="delivery-method"
-									className="d-form-control w-100">
-									<option value="1">I will pick up item myself</option>
-									<option value="2">Deliver it to me</option>
-								</select>
-							</div>
-						</div>
-					</div>
-
-					<button className="btn-primary-filled mt-3 px-4">Place Order</button>
-					<Link className="ml-4">
-						go back
-						<ion-icon name="arrow-back-outline"></ion-icon>
-					</Link>
-				</section>
-			</article>
-		</div>
-	);
-};
+					) : (
+						<>
+							<section className="col-md-6 col order-2 order-md-1">
+								<h3>Checkout</h3>
+								{errors &&
+									errors.map((err, index) => (
+										<strong className="text-danger d-block" key={index}>
+											{err}
+										</strong>
+									))}
+								<hr />
+								<CheckOutForm
+									onCheckout={this.handleCheckOut}
+									onChange={this.handleChange}
+									data={form}
+								/>
+							</section>
+							{item && (
+								<section className="col-md-4 order-1 order-md-2 mb-5">
+									<h3>Order</h3>
+									<hr />
+									<BuyCheckOut item={item} />
+								</section>
+							)}
+						</>
+					)}
+				</article>
+			</div>
+		);
+	}
+}
 
 export default CheckOut;

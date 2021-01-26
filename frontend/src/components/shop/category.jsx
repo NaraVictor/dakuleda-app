@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Category = (props) => {
 	const { image, name, slug } = props.category;
 	return (
-		<Link to={`/c/${slug}`}>
+		<Link to={`/c/${slug}`} category={name}>
 			<div className="category text-center">
 				<img src={image} alt="category" />
 			</div>

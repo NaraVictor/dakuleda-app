@@ -6,7 +6,10 @@ const BuyItemButton = ({ prod, classes }) => {
 	return (
 		<button
 			className={`btn-dc-primary ${classes}`}
-			onClick={() => buyItem(prod)}>
+			onClick={() => {
+				window.location.href = "/checkout";
+				buyItem(prod);
+			}}>
 			Buy now
 		</button>
 	);
